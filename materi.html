@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materi - Visualisasi Sendi</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- P5.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <!-- Navbar -->
+  <header class="py-4 px-6 bg-gray-800 sticky top-0 z-20">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="index.html#home" class="inline-flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded-lg transition">
+          <i data-feather="home"></i>
+          <span>Beranda</span>
+        </a>
+        <a href="materi.html" class="inline-flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded-lg transition bg-gray-700">
+          <i data-feather="book"></i>
+          <span>Materi</span>
+        </a>
+        <a href="kuis.html" class="inline-flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded-lg transition">
+          <i data-feather="check-circle"></i>
+          <span>Kuis</span>
+        </a>
+        <a href="index.html#about" class="inline-flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded-lg transition">
+          <i data-feather="users"></i>
+          <span>About</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Header -->
+  <section class="py-16 px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">Materi Persendian: Engsel & Rotasi</h1>
+      <p class="text-gray-400 text-lg leading-relaxed">
+        Sistem gerak manusia memungkinkan kita melakukan berbagai aktivitas sehari-hari. Salah satu bagian penting dari sistem ini adalah <strong>sendi</strong>, yaitu pertemuan antara dua tulang. 
+        Pada materi kali ini, kita akan mempelajari <strong>sendi engsel</strong> dan <strong>sendi rotasi</strong>, beserta contoh dan fungsinya dalam tubuh.
+      </p>
+    </div>
+  </section>
+
+  <!-- Materi Tertulis -->
+  <section class="px-6 max-w-5xl mx-auto mb-16">
+    <div class="bg-gray-800 p-8 rounded-xl shadow-lg mb-10">
+      <h2 class="text-3xl font-semibold text-green-400 mb-4">1. Sendi Engsel</h2>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        Sendi engsel memungkinkan gerakan ke satu arah saja, seperti membuka dan menutup pintu. Gerakan ini biasanya hanya menekuk dan meluruskan.
+      </p>
+      <ul class="list-disc list-inside text-gray-400 space-y-2">
+        <li><strong>Ciri-ciri:</strong> hanya bisa bergerak satu arah (fleksi & ekstensi).</li>
+        <li><strong>Contoh:</strong> siku, lutut, jari tangan, rahang bawah.</li>
+        <li><strong>Fungsi:</strong> mempermudah aktivitas seperti berjalan, menggenggam, atau membuka mulut.</li>
+      </ul>
+    </div>
+
+    <div class="bg-gray-800 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl font-semibold text-yellow-400 mb-4">2. Sendi Rotasi</h2>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        Sendi rotasi memungkinkan tulang bergerak berputar pada porosnya. Jenis sendi ini penting agar tubuh dapat melakukan gerakan menoleh atau memutar.
+      </p>
+      <ul class="list-disc list-inside text-gray-400 space-y-2">
+        <li><strong>Ciri-ciri:</strong> memungkinkan gerakan berputar di sekitar poros.</li>
+        <li><strong>Contoh:</strong> hubungan tulang atlas & tulang axis pada leher, pergelangan tangan, serta lengan bawah (radius & ulna).</li>
+        <li><strong>Fungsi:</strong> mempermudah gerakan menoleh, memutar telapak tangan, dan menggerakkan pergelangan.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Kontainer Visualisasi -->
+  <section class="px-6 pb-20">
+    <!-- Engsel -->
+    <div class="text-center mb-10">
+      <h2 class="text-3xl font-semibold text-green-400 mb-2">Visualisasi Sendi Engsel</h2>
+      <p class="text-gray-400">Contoh: Siku, Lutut, Jari Tangan</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+      <div class="bg-gray-800 p-4 rounded-xl shadow-md text-center">
+        <h3 class="text-xl font-semibold mb-2">Sendi Siku</h3>
+        <div id="engsel-siku" class="aspect-square"></div>
+      </div>
+      <div class="bg-gray-800 p-4 rounded-xl shadow-md text-center">
+        <h3 class="text-xl font-semibold mb-2">Sendi Lutut</h3>
+        <div id="engsel-lutut" class="aspect-square"></div>
+      </div>
+      <div class="bg-gray-800 p-4 rounded-xl shadow-md text-center">
+        <h3 class="text-xl font-semibold mb-2">Sendi Jari</h3>
+        <div id="engsel-jari" class="aspect-square"></div>
+      </div>
+    </div>
+
+    <!-- Rotasi -->
+    <div class="text-center mb-10">
+      <h2 class="text-3xl font-semibold text-yellow-400 mb-2">Visualisasi Sendi Rotasi</h2>
+      <p class="text-gray-400">Contoh: Leher, Pergelangan Tangan</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div class="bg-gray-800 p-4 rounded-xl shadow-md text-center">
+        <h3 class="text-xl font-semibold mb-2">Sendi Leher</h3>
+        <div id="rotasi-leher" class="aspect-square"></div>
+      </div>
+      <div class="bg-gray-800 p-4 rounded-xl shadow-md text-center">
+        <h3 class="text-xl font-semibold mb-2">Sendi Pergelangan</h3>
+        <div id="rotasi-tangan" class="aspect-square"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-center py-6 text-gray-400">
+    &copy; 2025 Materi Biologi Kelas X
+  </footer>
+
+  <script>feather.replace();</script>
+  <script src="script.js"></script>
+</body>
+</html>
