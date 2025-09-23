@@ -1,122 +1,148 @@
-// Fungsi reusable untuk membuat animasi sendi engsel
-function createEngselSketch(id, label, maxAngle = 90, speed = 1) {
-  new p5(function (p) {
-    let angle = 0;
-    let increasing = true;
-
-    p.setup = function () {
-      let canvas = p.createCanvas(p.select(`#${id}`).width, p.select(`#${id}`).width);
-      canvas.parent(id);
-      p.angleMode(p.DEGREES);
-    };
-
-    p.draw = function () {
-      p.background(30);
-      p.translate(p.width / 2, p.height / 2);
-
-      // Area sendi
-      p.noStroke();
-      p.fill(60);
-      p.ellipse(0, 0, 140);
-
-      // Tulang bawah (tetap)
-      p.fill(180);
-      p.stroke(100);
-      p.strokeWeight(2);
-      p.rect(-60, -8, 60, 16, 8);
-
-      // Titik engsel
-      p.noStroke();
-      p.fill(255, 0, 0);
-      p.ellipse(0, 0, 16);
-
-      // Tulang atas (bergerak)
-      p.push();
-      p.rotate(angle);
-      p.fill(200);
-      p.stroke(100);
-      p.rect(0, -8, 70, 16, 8);
-      p.pop();
-
-      // Gerakan animasi
-      if (increasing) {
-        angle += speed;
-        if (angle >= maxAngle) increasing = false;
-      } else {
-        angle -= speed;
-        if (angle <= 0) increasing = true;
-      }
-
-      // Tampilkan label sudut
-      p.resetMatrix();
-      p.fill(255);
-      p.textAlign(p.CENTER);
-      p.textSize(14);
-      p.text(`${label} - Sudut: ${Math.round(angle)}°`, p.width / 2, p.height - 10);
-    };
-  });
+class EngselAnimation {
+  constructor(id, label, maxAngle = 90, defaultSpeed = 1) {
+    this.id = id;
+    this.label = label;
+    this.maxAngle = maxAngle;
+    this.speed = defaultSpeed;
+    this.angle = 0;
+    this.increasing = true;
+    this.isPlaying = true;
+    this.initSketch();
+    this.initControls();
+  }
+  initSketch() {
+    const self = this;
+    new p5(function (p) {
+      p.setup = function () {
+        let canvas = p.createCanvas(p.select(`#${self.id}`).width, p.select(`#${self.id}`).width);
+        canvas.parent(self.id);
+        p.angleMode(p.DEGREES);
+      };
+      p.draw = function () {
+        p.background(30);
+        p.translate(p.width / 2, p.height / 2);
+        p.noStroke();
+        p.fill(60);
+        p.ellipse(0, 0, 140);
+        p.fill(180);
+        p.stroke(100);
+        p.strokeWeight(2);
+        p.rect(-60, -8, 60, 16, 8);
+        p.noStroke();
+        p.fill(255, 0, 0);
+        p.ellipse(0, 0, 16);
+        p.push();
+        p.rotate(self.angle);
+        p.fill(200);
+        p.stroke(100);
+        p.rect(0, -8, 70, 16, 8);
+        p.pop();
+        if (self.isPlaying) {
+          if (self.increasing) {
+            self.angle += self.speed;
+            if (self.angle >= self.maxAngle) self.increasing = false;
+          } else {
+            self.angle -= self.speed;
+            if (self.angle <= 0) self.increasing = true;
+          }
+        }
+        p.resetMatrix();
+        p.fill(255);
+        p.textAlign(p.CENTER);
+        p.textSize(14);
+        p.text(`${self.label} - Sudut: ${Math.round(self.angle)}°`, p.width / 2, p.height - 10);
+      };
+    });
+  }
+  initControls() {
+    const playBtn = document.getElementById(`play-${this.id}`);
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        this.isPlaying = !this.isPlaying;
+        playBtn.textContent = this.isPlaying ? 'Pause' : 'Play';
+      });
+    }
+    const speedSlider = document.getElementById(`speed-${this.id}`);
+    if (speedSlider) {
+      speedSlider.addEventListener('input', () => {
+        this.speed = parseFloat(speedSlider.value);
+      });
+    }
+  }
 }
 
 // Fungsi reusable untuk membuat animasi sendi rotasi
-function createRotasiSketch(id, label, maxAngle = 360, speed = 2) {
-  new p5(function (p) {
-    let angle = 0;
-
-    p.setup = function () {
-      let canvas = p.createCanvas(p.select(`#${id}`).width, p.select(`#${id}`).width);
-      canvas.parent(id);
-      p.angleMode(p.DEGREES);
-    };
-
-    p.draw = function () {
-      p.background(30);
-      p.translate(p.width / 2, p.height / 2);
-
-      // Area sendi
-      p.noStroke();
-      p.fill(60);
-      p.ellipse(0, 0, 140);
-
-      // Tulang bawah (tetap)
-      p.fill(180);
-      p.stroke(100);
-      p.strokeWeight(2);
-      p.rect(-60, -8, 60, 16, 8);
-
-      // Titik rotasi
-      p.noStroke();
-      p.fill(0, 128, 255);
-      p.ellipse(0, 0, 16);
-
-      // Tulang atas (berputar)
-      p.push();
-      p.rotate(angle);
-      p.fill(200);
-      p.stroke(100);
-      p.rect(0, -8, 70, 16, 8);
-      p.pop();
-
-      // Gerakan rotasi terus menerus
-      angle = (angle + speed) % maxAngle;
-
-      // Tampilkan label sudut
-      p.resetMatrix();
-      p.fill(255);
-      p.textAlign(p.CENTER);
-      p.textSize(14);
-      p.text(`${label} - Sudut: ${Math.round(angle)}°`, p.width / 2, p.height - 10);
-    };
-  });
+class RotasiAnimation {
+  constructor(id, label, maxAngle = 360, defaultSpeed = 2) {
+    this.id = id;
+    this.label = label;
+    this.maxAngle = maxAngle;
+    this.speed = defaultSpeed;
+    this.angle = 0;
+    this.isPlaying = true;
+    this.initSketch();
+    this.initControls();
+  }
+  initSketch() {
+    const self = this;
+    new p5(function (p) {
+      p.setup = function () {
+        let canvas = p.createCanvas(p.select(`#${self.id}`).width, p.select(`#${self.id}`).width);
+        canvas.parent(self.id);
+        p.angleMode(p.DEGREES);
+      };
+      p.draw = function () {
+        p.background(30);
+        p.translate(p.width / 2, p.height / 2);
+        p.noStroke();
+        p.fill(60);
+        p.ellipse(0, 0, 140);
+        p.fill(180);
+        p.stroke(100);
+        p.strokeWeight(2);
+        p.rect(-60, -8, 60, 16, 8);
+        p.noStroke();
+        p.fill(0, 128, 255);
+        p.ellipse(0, 0, 16);
+        p.push();
+        p.rotate(self.angle);
+        p.fill(200);
+        p.stroke(100);
+        p.rect(0, -8, 70, 16, 8);
+        p.pop();
+        if (self.isPlaying) {
+          self.angle = (self.angle + self.speed) % self.maxAngle;
+        }
+        p.resetMatrix();
+        p.fill(255);
+        p.textAlign(p.CENTER);
+        p.textSize(14);
+        p.text(`${self.label} - Sudut: ${Math.round(self.angle)}°`, p.width / 2, p.height - 10);
+      };
+    });
+  }
+  initControls() {
+    const playBtn = document.getElementById(`play-${this.id}`);
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        this.isPlaying = !this.isPlaying;
+        playBtn.textContent = this.isPlaying ? 'Pause' : 'Play';
+      });
+    }
+    const speedSlider = document.getElementById(`speed-${this.id}`);
+    if (speedSlider) {
+      speedSlider.addEventListener('input', () => {
+        this.speed = parseFloat(speedSlider.value);
+      });
+    }
+  }
 }
 
 // Inisialisasi semua animasi setelah DOM siap
 window.addEventListener("DOMContentLoaded", () => {
-  // Persendian Engsel
-  createEngselSketch("engsel-siku", "Sendi Siku", 90, 1);
-  createEngselSketch("engsel-lutut", "Sendi Lutut", 130, 1);
-  createEngselSketch("engsel-jari", "Sendi Jari", 60, 2);
-
-  // Persendian Rotasi
-  createRotasiSketch("rotasi-leher", "Sendi Leher", 80, 1);
-  createRotasiSketch("rotasi-tangan", "Sendi Pergelangan", 360, 3);
+  new EngselAnimation("engsel-siku", "Sendi Siku", 90, 1);
+  new EngselAnimation("engsel-lutut", "Sendi Lutut", 130, 1);
+  new EngselAnimation("engsel-jari", "Sendi Jari", 60, 2);
+  new RotasiAnimation("rotasi-leher", "Sendi Leher", 80, 1);
+  new RotasiAnimation("rotasi-tangan", "Sendi Pergelangan", 360, 3);
 });
