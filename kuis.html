@@ -64,64 +64,7 @@
   <footer class="py-6 text-center text-gray-400 bg-gray-800">
     &copy; 2025 Materi Biologi Kelas X
   </footer>
-
   <script>feather.replace();</script>
-  <script>
-    // soal kuis sederhana
-    const questions = [
-      { q: "Sendi engsel hanya bisa bergerak ke arah?", o: ["Satu arah", "Dua arah", "Bebas"], a: 0 },
-      { q: "Contoh sendi engsel adalah?", o: ["Leher", "Siku", "Pinggul"], a: 1 },
-      { q: "Sendi rotasi memungkinkan gerakan?", o: ["Naik turun", "Memutar", "Maju mundur"], a: 1 },
-      { q: "Hubungan atlas dan axis pada leher termasuk?", o: ["Sendi Engsel", "Sendi Rotasi", "Sendi Peluru"], a: 1 },
-    ];
-
-    let current = 0, score = 0;
-    const startBtn = document.getElementById("start-btn");
-    const quiz = document.getElementById("quiz-container");
-    const qEl = document.getElementById("question");
-    const optEl = document.getElementById("options");
-    const nextBtn = document.getElementById("next-btn");
-    const endScreen = document.getElementById("end-screen");
-    const scoreEl = document.getElementById("score");
-    const progress = document.getElementById("progress");
-
-    startBtn.onclick = () => {
-      startBtn.classList.add("hidden");
-      quiz.classList.remove("hidden");
-      loadQ();
-    };
-
-    function loadQ() {
-      let q = questions[current];
-      qEl.textContent = q.q;
-      optEl.innerHTML = "";
-      q.o.forEach((text, i) => {
-        let btn = document.createElement("button");
-        btn.textContent = text;
-        btn.className = "block w-full bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded";
-        btn.onclick = () => select(i);
-        optEl.appendChild(btn);
-      });
-      progress.style.width = `${(current / questions.length) * 100}%`;
-      nextBtn.disabled = true;
-    }
-
-    function select(i) {
-      if (i === questions[current].a) score++;
-      nextBtn.disabled = false;
-    }
-
-    nextBtn.onclick = () => {
-      current++;
-      if (current < questions.length) {
-        loadQ();
-      } else {
-        quiz.classList.add("hidden");
-        endScreen.classList.remove("hidden");
-        scoreEl.textContent = `Skor kamu: ${score} dari ${questions.length}`;
-        progress.style.width = "100%";
-      }
-    };
-  </script>
+  <script src="kuis.js"></script>
 </body>
 </html>
