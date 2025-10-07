@@ -12,9 +12,33 @@
   <script src="https://unpkg.com/feather-icons"></script>
 
   <!-- P5.js -->
+</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+  <style>
+    /* Pastikan canvas p5 responsif dan terpusat di dalam #sketsa-tempat */
+    #sketsa-tempat { display: flex; align-items: center; justify-content: center; }
+    #sketsa-tempat canvas { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+    /* Center canvases inside the smaller example boxes */
+    #engsel-siku, #engsel-lutut, #engsel-jari, #rotasi-leher, #rotasi-tangan {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Make example canvases scale to the container while keeping aspect ratio */
+    #engsel-siku canvas, #engsel-lutut canvas, #engsel-jari canvas,
+    #rotasi-leher canvas, #rotasi-tangan canvas {
+      width: 100%;
+      height: auto;
+      max-width: 420px; /* sedikit lebih lebar sehingga contoh tidak gepeng */
+      display: block;
+    }
+    /* Izinkan canvas simulasi besar lebih lebar sehingga proporsi stickman terjaga */
+    #sketsa-tempat canvas { max-width: 900px; width: 100%; height: auto; display: block; }
+    /* Ensure all canvases are block-level and centered */
+    canvas { display: block; margin: 0 auto; }
+  </style>
 </head>
-<body class="bg-gray-900 text-white font-sans">
+<body class="bg-gray-900 text-white font-sans min-h-screen flex flex-col">
 
   <!-- Navbar -->
   <header class="py-4 px-6 bg-gray-800 sticky top-0 z-20">
@@ -50,7 +74,7 @@
       </p>
     </div>
   </section>
-
+  <main class="flex-grow">
   <!-- Materi Tertulis -->
   <section class="px-6 max-w-5xl mx-auto mb-16">
     <div class="bg-gray-800 p-8 rounded-xl shadow-lg mb-10">
@@ -136,16 +160,31 @@
     </div>
   </section>
 
+    <!-- Simulasi penuh: Persendian (ditambahkan dari persendian_tailwind) -->
+    <section class="px-6 max-w-5xl mx-auto mb-16">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-semibold mb-1">Simulasi Persendian </h2>
+        <p class="text-gray-400 text-sm">Arahkan kursor ke sendi untuk melihat nama dan batasnya. Klik & tarik sendi untuk merotasi.</p>
+      </div>
+      <div class="flex justify-center">
+        <div id="sketsa-tempat" class="flex items-center justify-center relative w-full md:w-11/12 lg:w-10/12 xl:w-8/12">
+          <!-- canvas akan dibuat oleh p5 di sini; kontrol ditempatkan sebagai overlay terpusat bawah -->
+          <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+            <button id="tombol-reset" class="py-2 px-4 rounded-lg bg-green-600 hover:bg-green-500 font-semibold">Reset (R)</button>
+            <button id="tombol-grid" class="py-2 px-4 rounded-lg bg-gray-700 hover:bg-gray-600 font-semibold">Grid (G)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
   <!-- Footer -->
-  <footer class="bg-gray-800 text-center py-6 text-gray-400">
+  <footer class="bg-gray-800 text-center py-6 text-gray-400 mt-auto">
     &copy; 2025 Materi Biologi Kelas X
   </footer>
+
   <script>feather.replace();</script>
-<<<<<<< HEAD
-<script src="script.js"></script>
-</script>
-=======
   <script src="materi.js"></script>
->>>>>>> bdd94dd2c3913f5c18db1f343f03b6c8cc958731
 </body>
 </html>
