@@ -61,6 +61,7 @@
           <span>About</span>
         </a>
       </div>
+      <div class="text-gray-300 text-sm">Materi Biologi Kelas X</div>
     </nav>
   </header>
 
@@ -180,11 +181,14 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-center py-6 text-gray-400 mt-auto">
-    &copy; 2025 Materi Biologi Kelas X
+  <footer class="py-8 text-center text-gray-400 border-t border-gray-800">
+    &copy; <span id="year"></span> Kelompok 1 — Materi Biologi Kelas X
   </footer>
 
-  <script>feather.replace();</script>
+  <script>
+    feather.replace();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
   <script src="materi.js"></script>
 </body>
 </html>
